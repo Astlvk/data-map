@@ -56,7 +56,11 @@ async function bootstrap() {
   // 配置全局HttpException异常过滤器，用于记录异常日志
   app.useGlobalFilters(new HttpExceptionFilter());
   // 配置全局验证管道，配合Dto类使用
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+    }),
+  );
   // 配置静态资源目录
   app.useStaticAssets(join(__dirname, '..', 'public'), {
     prefix: '/static',
