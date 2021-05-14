@@ -24,6 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         url: request.url,
         method: request.method,
         detail: exception.getResponse(),
+        stack: (exception.getResponse() as any).stack,
       };
 
       this.logger.setContext('HttpException');

@@ -4,23 +4,38 @@ import {
   Post,
   Body,
   Put,
-  Patch,
   Param,
   Delete,
   HttpException,
   HttpStatus,
-  Logger,
+  Query,
 } from '@nestjs/common';
+import { PageParams } from 'src/decorators/page-params.decorator';
 import { CatService } from './cat.service';
 import { CreateCatDto } from './dto/create-cat.dto';
+import { SearchCatDto } from './dto/search-cat-dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
-@Controller('cat')
+@Controller('cats')
 export class CatController {
-  constructor(
-    private readonly catService: CatService,
-    private readonly logger: Logger,
-  ) {}
+  constructor(private readonly catService: CatService) {}
+
+  @Get()
+  async findByPagination(
+    @PageParams() paraParams: PageParams,
+    @Query() query: SearchCatDto,
+  ) {
+    try {
+      return await this.catService.findByPagination(paraParams, query);
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.catService.findOne(id);
+  }
 
   @Post()
   async create(@Body() createCatDto: CreateCatDto) {
@@ -32,18 +47,7 @@ export class CatController {
     }
   }
 
-  @Get()
-  findAll() {
-    return this.catService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.catService.findOne(id);
-  }
-
   @Put(':id')
-  @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
     console.log(updateCatDto);
     try {
@@ -55,7 +59,7 @@ export class CatController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.catService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.catService.remove(id);
   }
 }
