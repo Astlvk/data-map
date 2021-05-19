@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PageParams } from 'src/decorators/page-params.decorator';
+import { PagingLimit } from 'src/decorators/paging-limit.decorator';
 import { DeleteResult } from 'typeorm';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { SearchCatDto } from './dto/search-cat-dto';
@@ -25,11 +26,13 @@ export class CatService {
     }
   }
 
+  @PagingLimit<SearchCatDto, Cat>()
   async findByPagination(
     pageParams: PageParams,
     query: SearchCatDto,
   ): Promise<[Cat[], number]> {
     try {
+      console.log(pageParams);
       const res = await Cat.findAndCount({
         where: query,
         ...pageParams,

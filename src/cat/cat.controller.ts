@@ -9,8 +9,10 @@ import {
   HttpException,
   HttpStatus,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PageParams } from 'src/decorators/page-params.decorator';
+import { ReturnValueInterceptor } from 'src/Interceptors/return-value.interceptor';
 import { CatService } from './cat.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { SearchCatDto } from './dto/search-cat-dto';
@@ -21,6 +23,7 @@ export class CatController {
   constructor(private readonly catService: CatService) {}
 
   @Get()
+  @UseInterceptors(ReturnValueInterceptor)
   async findByPagination(
     @PageParams() paraParams: PageParams,
     @Query() query: SearchCatDto,

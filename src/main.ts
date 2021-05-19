@@ -7,7 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { WinstonModule, utilities } from 'nest-winston';
 import { transports, format } from 'winston';
 import { MongoDB } from 'winston-mongodb';
-import { HttpExceptionFilter } from './filter/http-exception.filter';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
