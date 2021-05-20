@@ -9,9 +9,11 @@ import { AppService } from './app.service';
 import { InitMiddleware } from './init.middleware';
 import { DataBaseModule } from './data-base/data-base.module';
 import { CatModule } from './cat/cat.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [DataBaseModule, CatModule],
+  imports: [DataBaseModule, CatModule, AuthModule, UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
