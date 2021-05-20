@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { isNonZeroPositiveInteger } from 'src/utils/reg';
 
 export interface PageParams {
@@ -13,14 +14,9 @@ export interface PageParams {
 
 export const PageParams = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
-    const request = ctx.switchToHttp().getRequest();
-    const {
-      pageSize: oPageSize,
-      pageNum: oPageNum,
-    }: {
-      pageSize: undefined | string;
-      pageNum: undefined | string;
-    } = request.query;
+    const request = ctx.switchToHttp().getRequest<Request>();
+    const oPageSize = request.query.pageSize as string | undefined;
+    const oPageNum = request.query.pageNum as string | undefined;
 
     // 字段存在时校验是否符合要求
     if (oPageSize !== undefined) {

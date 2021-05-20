@@ -32,7 +32,6 @@ export class CatService {
     query: SearchCatDto,
   ): Promise<[Cat[], number]> {
     try {
-      console.log(pageParams);
       const res = await Cat.findAndCount({
         where: query,
         ...pageParams,
