@@ -50,6 +50,11 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
+  @Get('name/:name')
+  findOneByName(@Param('name') name: string): Promise<User> {
+    return this.userService.findOneByName(name);
+  }
+
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
