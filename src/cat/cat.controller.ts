@@ -18,9 +18,18 @@ import { CreateCatDto } from './dto/create-cat.dto';
 import { SearchCatDto } from './dto/search-cat-dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
-@Controller('cats')
+@Controller('cat')
 export class CatController {
   constructor(private readonly catService: CatService) {}
+
+  @Post()
+  async create(@Body() createCatDto: CreateCatDto) {
+    try {
+      return await this.catService.create(createCatDto);
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+    }
+  }
 
   @Get()
   @UseInterceptors(ReturnValueInterceptor)
@@ -40,22 +49,10 @@ export class CatController {
     return await this.catService.findOne(id);
   }
 
-  @Post()
-  async create(@Body() createCatDto: CreateCatDto) {
-    try {
-      await this.catService.create(createCatDto);
-      return true;
-    } catch (error) {
-      throw new HttpException(error, HttpStatus.BAD_REQUEST);
-    }
-  }
-
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
-    console.log(updateCatDto);
     try {
-      await this.catService.update(id, updateCatDto);
-      return true;
+      return await this.catService.update(id, updateCatDto);
     } catch (error) {
       throw new HttpException(error, HttpStatus.BAD_REQUEST);
     }

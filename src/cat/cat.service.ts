@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PageParams } from 'src/decorators/page-params.decorator';
 import { PagingLimit } from 'src/decorators/paging-limit.decorator';
-import { DeleteResult } from 'typeorm';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { SearchCatDto } from './dto/search-cat-dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
@@ -9,10 +9,12 @@ import { Cat } from './entities/cat.entity';
 
 @Injectable()
 export class CatService {
-  async create({ name, desc }: CreateCatDto) {
+  async create({ name, desc }: CreateCatDto): Promise<Cat> {
     try {
-      const cat: Cat = new Cat(name, desc);
-      await cat.save();
+      const cat: Cat = new Cat();
+      cat.name = name;
+      cat.desc = desc;
+      return await cat.save();
     } catch (error) {
       throw error;
     }
@@ -32,11 +34,10 @@ export class CatService {
     query: SearchCatDto,
   ): Promise<[Cat[], number]> {
     try {
-      const res = await Cat.findAndCount({
+      return await Cat.findAndCount({
         where: query,
         ...pageParams,
       });
-      return res;
     } catch (error) {
       throw error;
     }
@@ -50,9 +51,9 @@ export class CatService {
     }
   }
 
-  async update(id: string, updateCatDto: UpdateCatDto) {
+  async update(id: string, updateCatDto: UpdateCatDto): Promise<UpdateResult> {
     try {
-      await Cat.update(id, updateCatDto);
+      return await Cat.update(id, updateCatDto);
     } catch (error) {
       throw error;
     }

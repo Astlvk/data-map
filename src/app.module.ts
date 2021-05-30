@@ -10,10 +10,10 @@ import { InitMiddleware } from './init.middleware';
 import { DataBaseModule } from './data-base/data-base.module';
 import { CatModule } from './cat/cat.module';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [DataBaseModule, CatModule, AuthModule, UsersModule],
+  imports: [DataBaseModule, CatModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

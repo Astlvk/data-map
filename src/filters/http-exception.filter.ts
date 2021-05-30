@@ -24,6 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         url: request.url,
         method: request.method,
         detail: exception.getResponse(),
+        message: (exception.getResponse() as any).message,
         stack: (exception.getResponse() as any).stack,
       };
 

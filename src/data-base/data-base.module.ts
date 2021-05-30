@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cat } from 'src/cat/entities/cat.entity';
+import { entityList } from './entity-list';
 
 @Module({
   imports: [
@@ -9,7 +9,7 @@ import { Cat } from 'src/cat/entities/cat.entity';
       host: 'localhost',
       port: 27017,
       database: 'develop',
-      entities: [Cat],
+      entities: [...entityList],
       synchronize: true,
       useUnifiedTopology: true,
     }),

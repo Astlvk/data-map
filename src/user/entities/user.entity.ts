@@ -1,13 +1,13 @@
 import { BaseEntity, Column, Entity, ObjectIdColumn } from 'typeorm';
 
 @Entity()
-export class Cat extends BaseEntity {
+export class User extends BaseEntity {
   @ObjectIdColumn()
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column()
-  desc: string;
+  pass: string;
 }
