@@ -24,7 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         url: request.url,
         method: request.method,
         detail: exception.getResponse(),
-        message: (exception.getResponse() as any).message,
+        message: (exception.getResponse() as any).message || '预期外得错误，请查看错误详情。',
         stack: (exception.getResponse() as any).stack,
       };
 

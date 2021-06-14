@@ -22,7 +22,9 @@ export const PageParams = createParamDecorator(
     if (oPageSize !== undefined) {
       if (!isNonZeroPositiveInteger(oPageSize)) {
         throw new HttpException(
-          `pageSize必须为非零正整数`,
+          {
+            message: `pageSize必须为非零正整数`
+          },
           HttpStatus.BAD_REQUEST,
         );
       }
@@ -31,7 +33,9 @@ export const PageParams = createParamDecorator(
     if (oPageNum !== undefined) {
       if (!isNonZeroPositiveInteger(oPageNum)) {
         throw new HttpException(
-          `pageNum必须非零正整数`,
+          {
+            message: `pageNum必须非零正整数`
+          },
           HttpStatus.BAD_REQUEST,
         );
       }
