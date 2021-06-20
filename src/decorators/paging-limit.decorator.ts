@@ -19,7 +19,7 @@ export function PagingLimit<Dto, Entity>(): MethodDecorator {
       if (pageParams.skip === undefined) {
         throw new HttpException(
           {
-            message: `在装饰器PagingLimit内pageParams.skip不能为undefined`
+            message: `在装饰器PagingLimit内pageParams.skip不能为undefined`,
           },
           HttpStatus.BAD_REQUEST,
         );
@@ -27,7 +27,7 @@ export function PagingLimit<Dto, Entity>(): MethodDecorator {
       if (pageParams.take === undefined) {
         throw new HttpException(
           {
-            message: `在装饰器PagingLimit内pageParams.take不能为undefined`
+            message: `在装饰器PagingLimit内pageParams.take不能为undefined`,
           },
           HttpStatus.BAD_REQUEST,
         );

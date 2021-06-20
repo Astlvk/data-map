@@ -11,7 +11,8 @@ import { FindAndCountReturn } from 'src/interfaces/type-orm-wrap.interface';
 
 @Injectable()
 export class ReturnValueInterceptor<T>
-  implements NestInterceptor<FindAndCountReturn<T>> {
+  implements NestInterceptor<FindAndCountReturn<T>>
+{
   intercept(
     context: ExecutionContext,
     next: CallHandler<FindAndCountReturn<T>>,

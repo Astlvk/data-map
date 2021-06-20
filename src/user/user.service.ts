@@ -12,7 +12,7 @@ export class UserService {
     try {
       const user = new User();
       user.name = createUserDto.name;
-      user.pass = createUserDto.pass;
+      user.password = createUserDto.password;
       return await user.save();
     } catch (error) {
       console.log(error.message);
@@ -39,17 +39,16 @@ export class UserService {
     }
   }
 
-
   findOne(id: number) {
     return `This action returns a #${id} user`;
   }
 
   async findOneByName(name: string): Promise<User | undefined> {
     try {
-      const user = await User.findOne({ name })
-      return user
+      const user = await User.findOne({ name });
+      return user;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
