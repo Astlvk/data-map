@@ -41,8 +41,8 @@ export const PageParams = createParamDecorator(
       }
     }
 
-    const pageSize = Number(oPageSize);
-    const pageNum = Number(oPageNum);
+    const pageSize = Number(oPageSize); // 转换后可能为NaN
+    const pageNum = Number(oPageNum); // 转换后可能为NaN
 
     // 计算分页偏移量
     const skip = pageNum * pageSize - pageSize;

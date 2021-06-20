@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { FindAndCountReturn } from 'src/interfaces/type-orm-wrap.interface';
 import { PageParams } from './page-params.decorator';
 
@@ -15,6 +16,23 @@ export function PagingLimit<Dto, Entity>(): MethodDecorator {
       pageParams: PageParams,
       dto: Dto,
     ) {
+      if (pageParams.skip === undefined) {
+        throw new HttpException(
+          {
+            message: `在装饰器PagingLimit内pageParams.skip不能为undefined`
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      if (pageParams.take === undefined) {
+        throw new HttpException(
+          {
+            message: `在装饰器PagingLimit内pageParams.take不能为undefined`
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
       // 控制最小极限值
       if (pageParams.skip < 0) pageParams.skip = 0; // 装饰器形式，此处不保证skip一定是数字
 

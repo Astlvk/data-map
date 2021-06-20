@@ -44,7 +44,7 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  async findOneByName(name: string): Promise<User> {
+  async findOneByName(name: string): Promise<User | undefined> {
     try {
       const user = await User.findOne({ name })
       return user

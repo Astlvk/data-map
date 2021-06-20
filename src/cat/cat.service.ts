@@ -43,7 +43,7 @@ export class CatService {
     }
   }
 
-  async findOne(id: string): Promise<Cat> {
+  async findOne(id: string): Promise<Cat | undefined> {
     try {
       return Cat.findOne(id);
     } catch (error) {
